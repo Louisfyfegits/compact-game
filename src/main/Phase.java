@@ -3,7 +3,7 @@ package main;
 import java.util.List;
 
 record Phase(Model model, Controller controller){ 
-  static Phase level1(Runnable next, Runnable first) {
+  static Phase level1(Runnable next, Runnable first, Compact.KeyBinds currentBinds) {
     Camera c= new Camera(new Point(5, 5));
     Sword s= new Sword(c);
     Cells cells= new Cells();
@@ -27,6 +27,6 @@ record Phase(Model model, Controller controller){
     @Override
 	public void onNextLevel(){ next.run(); }
     };
-    return new Phase(m, new Controller(c, s));    
+    return new Phase(m, new Controller(c, s, currentBinds));    
   }
 }

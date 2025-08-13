@@ -67,7 +67,7 @@ class Compact extends JFrame{
 	   return button;
 	}
   private void changeControl(JButton b ,int current, String title, Consumer<Integer> update) {
-	  b.setText("Press a key to replace "+ KeyEvent.getKeyText(current));
+	  b.setText("Press a key to replace "+ KeyEvent.getKeyText(current)); //TODO fix bug
 	  KeyAdapter keyListener = new KeyAdapter() {
 	        @Override
 			public void keyPressed(KeyEvent e) {

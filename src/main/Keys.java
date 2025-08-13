@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.SwingUtilities;
-
+//TODO check if matches first task
 class Keys implements KeyListener {
   private final Map<Integer,Runnable> actionsPressed= new HashMap<>();
   private final Map<Integer,Runnable> actionsReleased= new HashMap<>();

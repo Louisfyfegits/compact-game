@@ -16,8 +16,8 @@ public Point location(){
     return dir.times(distance()).add(wielder.location());
   }
   public void onHit(Model m, Entity e){ 
-    if (e instanceof Monster){ m.remove(e); }
-  }
+    if (e instanceof Monster){((Monster)e).hit();} //changed here
+  } 
 
   public double effectRange(){ return 0.3d; } 
   

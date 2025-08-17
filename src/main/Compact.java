@@ -2,6 +2,7 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -98,7 +99,7 @@ class Compact extends JFrame{
 	    
 		add(BorderLayout.SOUTH, back);
 		back.addActionListener(e->phaseZero());
-		
+		 
 		 closePhase = ()->{
 		    	remove(settingsLabel);
 		    	remove(back);
@@ -107,8 +108,28 @@ class Compact extends JFrame{
 		    pack();
 	  }
   private void phaseOne(){
-    setPhase(Phase.level1(()->phaseOne(), ()->phaseZero(), currentBinds));
+    setPhase(Phase.level1(()->phaseTwo(), ()->phaseZero(), currentBinds));
   }
+  private void phaseTwo() {     
+	setPhase(Phase.level2(()->phaseThree(), ()->phaseOne(), currentBinds));
+  }
+  private void phaseThree() {
+	Phase phaseThree = Phase.level3(()->phaseThree(), ()->phaseTwo(), currentBinds);
+	Monster boss = (Monster)phaseThree.model().entities().stream()
+			.filter(e-> e instanceof Monster).findFirst()
+			.orElse(null);
+	Sword s = new Sword(boss) {
+		@Override
+		public double speed() {return 0.4;}
+		@Override
+		public double distance() {return 1.5;}
+	};
+	boss.s = s;
+	s.direction(Direction.Left);
+	phaseThree.model().entities().add(s);
+	setPhase(phaseThree);
+  }
+  
   void setPhase(Phase p){
     //set up the viewport and the timer
     Viewport v= new Viewport(p.model());
